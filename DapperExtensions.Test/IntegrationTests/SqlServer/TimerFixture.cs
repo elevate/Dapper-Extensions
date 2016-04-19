@@ -4,6 +4,7 @@ using System.Linq;
 using DapperExtensions.Test.Data;
 using DapperExtensions.Test.IntegrationTests.SqlServer;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace DapperExtensions.Test.IntegrationTests.SqlServer
 {
@@ -15,7 +16,7 @@ namespace DapperExtensions.Test.IntegrationTests.SqlServer
         public class InsertTimes : SqlServerBaseFixture
         {
             [Test]
-            public void IdentityKey_UsingEntity()
+            public async Task IdentityKey_UsingEntity()
             {
                 Person p = new Person
                                {
@@ -24,7 +25,7 @@ namespace DapperExtensions.Test.IntegrationTests.SqlServer
                                    DateCreated = DateTime.Now,
                                    Active = true
                                };
-                Db.Insert(p);
+                await Db.Insert(p);
                 DateTime start = DateTime.Now;
                 List<int> ids = new List<int>();
                 for (int i = 0; i < cnt; i++)
@@ -36,7 +37,7 @@ namespace DapperExtensions.Test.IntegrationTests.SqlServer
                                         DateCreated = DateTime.Now,
                                         Active = true
                                     };
-                    Db.Insert(p2);
+                    await Db.Insert(p2);
                     ids.Add(p2.Id);
                 }
 
@@ -46,7 +47,7 @@ namespace DapperExtensions.Test.IntegrationTests.SqlServer
             }
 
             [Test]
-            public void IdentityKey_UsingReturnValue()
+            public async Task IdentityKey_UsingReturnValue()
             {
                 Person p = new Person
                                {
@@ -55,7 +56,7 @@ namespace DapperExtensions.Test.IntegrationTests.SqlServer
                                    DateCreated = DateTime.Now,
                                    Active = true
                                };
-                Db.Insert(p);
+                await Db.Insert(p);
                 DateTime start = DateTime.Now;
                 List<int> ids = new List<int>();
                 for (int i = 0; i < cnt; i++)
@@ -67,7 +68,7 @@ namespace DapperExtensions.Test.IntegrationTests.SqlServer
                                         DateCreated = DateTime.Now,
                                         Active = true
                                     };
-                    var id = Db.Insert(p2);
+                    var id = await Db.Insert(p2);
                     ids.Add(id);
                 }
 
@@ -77,16 +78,16 @@ namespace DapperExtensions.Test.IntegrationTests.SqlServer
             }
 
             [Test]
-            public void GuidKey_UsingEntity()
+            public async Task GuidKey_UsingEntity()
             {
                 Animal a = new Animal { Name = "Name" };
-                Db.Insert(a);
+                await Db.Insert(a);
                 DateTime start = DateTime.Now;
                 List<Guid> ids = new List<Guid>();
                 for (int i = 0; i < cnt; i++)
                 {
                     Animal a2 = new Animal { Name = "Name" + i };
-                    Db.Insert(a2);
+                    await Db.Insert(a2);
                     ids.Add(a2.Id);
                 }
 
@@ -96,16 +97,16 @@ namespace DapperExtensions.Test.IntegrationTests.SqlServer
             }
 
             [Test]
-            public void GuidKey_UsingReturnValue()
+            public async Task GuidKey_UsingReturnValue()
             {
                 Animal a = new Animal { Name = "Name" };
-                Db.Insert(a);
+                await Db.Insert(a);
                 DateTime start = DateTime.Now;
                 List<Guid> ids = new List<Guid>();
                 for (int i = 0; i < cnt; i++)
                 {
                     Animal a2 = new Animal { Name = "Name" + i };
-                    var id = Db.Insert(a2);
+                    var id = await Db.Insert(a2);
                     ids.Add(id);
                 }
 
@@ -115,17 +116,17 @@ namespace DapperExtensions.Test.IntegrationTests.SqlServer
             }
 
             [Test]
-            public void AssignKey_UsingEntity()
+            public async Task AssignKey_UsingEntity()
             {
                 Car ca = new Car { Id = string.Empty.PadLeft(15, '0'), Name = "Name" };
-                Db.Insert(ca);
+                await Db.Insert(ca);
                 DateTime start = DateTime.Now;
                 List<string> ids = new List<string>();
                 for (int i = 0; i < cnt; i++)
                 {
                     var key = (i + 1).ToString().PadLeft(15, '0');
                     Car ca2 = new Car { Id = key, Name = "Name" + i };
-                    Db.Insert(ca2);
+                    await Db.Insert(ca2);
                     ids.Add(ca2.Id);
                 }
 
@@ -135,17 +136,17 @@ namespace DapperExtensions.Test.IntegrationTests.SqlServer
             }
 
             [Test]
-            public void AssignKey_UsingReturnValue()
+            public async Task AssignKey_UsingReturnValue()
             {
                 Car ca = new Car { Id = string.Empty.PadLeft(15, '0'), Name = "Name" };
-                Db.Insert(ca);
+                await Db.Insert(ca);
                 DateTime start = DateTime.Now;
                 List<string> ids = new List<string>();
                 for (int i = 0; i < cnt; i++)
                 {
                     var key = (i + 1).ToString().PadLeft(15, '0');
                     Car ca2 = new Car { Id = key, Name = "Name" + i };
-                    var id = Db.Insert(ca2);
+                    var id = await Db.Insert(ca2);
                     ids.Add(id);
                 }
 

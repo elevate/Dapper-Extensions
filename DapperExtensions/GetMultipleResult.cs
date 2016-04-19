@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dapper;
+using System.Threading.Tasks;
 
 namespace DapperExtensions
 {
     public interface IMultipleResultReader
     {
-        IEnumerable<T> Read<T>();
+        Task<IEnumerable<T>> Read<T>();
     }
 
     public class GridReaderResultReader : IMultipleResultReader
@@ -20,9 +21,9 @@ namespace DapperExtensions
             _reader = reader;
         }
 
-        public IEnumerable<T> Read<T>()
+        public Task<IEnumerable<T>> Read<T>()
         {
-            return _reader.Read<T>();
+            return _reader.ReadAsync<T>();
         }
     }
 
@@ -35,10 +36,10 @@ namespace DapperExtensions
             _items = new Queue<SqlMapper.GridReader>(items);
         }
 
-        public IEnumerable<T> Read<T>()
+        public Task<IEnumerable<T>> Read<T>()
         {
             SqlMapper.GridReader reader = _items.Dequeue();
-            return reader.Read<T>();
+            return reader.ReadAsync<T>();
         }
     }
 }
