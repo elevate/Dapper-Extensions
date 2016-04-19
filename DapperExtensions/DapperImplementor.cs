@@ -211,7 +211,7 @@ namespace DapperExtensions
                 dynamicParameters.Add(parameter.Key, parameter.Value);
             }
 
-            return connection.Query<T>(sql, dynamicParameters, transaction, buffered, commandTimeout, CommandType.Text);
+            return connection.QueryAsync<T>(sql, dynamicParameters, transaction, buffered, commandTimeout, CommandType.Text);
         }
 
         protected IEnumerable<T> GetPage<T>(IDbConnection connection, IClassMapper classMap, IPredicate predicate, IList<ISort> sort, int page, int resultsPerPage, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class
