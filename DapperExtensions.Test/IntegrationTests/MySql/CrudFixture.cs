@@ -28,6 +28,7 @@ namespace DapperExtensions.Test.IntegrationTests.MySql
             {
                 Multikey m = new Multikey { Key2 = "key", Value = "foo" };
                 var key = await Db.Insert(m);
+
                 Assert.AreEqual(1, key.Key1);
                 Assert.AreEqual("key", key.Key2);
             }
@@ -38,7 +39,8 @@ namespace DapperExtensions.Test.IntegrationTests.MySql
                 Animal a1 = new Animal { Name = "Foo" };
                 await Db.Insert(a1);
 
-                var a2 = await Db.Get<Animal>(a1.Id);
+                Animal a2 = await Db.Get<Animal>(a1.Id);
+
                 Assert.AreNotEqual(Guid.Empty, a2.Id);
                 Assert.AreEqual(a1.Id, a2.Id);
             }

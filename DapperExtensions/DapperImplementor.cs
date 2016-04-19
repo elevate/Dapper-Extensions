@@ -25,8 +25,7 @@ namespace DapperExtensions
             IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
             IPredicate predicate = GetIdPredicate(classMap, id);
             var results = await GetList<T>(connection, classMap, predicate, null, transaction, commandTimeout, true);
-            T result = results.SingleOrDefault();
-            return result;
+            return results.SingleOrDefault<T>();
         }
 
         public async Task Insert<T>(IDbConnection connection, IEnumerable<T> entities, IDbTransaction transaction, int? commandTimeout) where T : class

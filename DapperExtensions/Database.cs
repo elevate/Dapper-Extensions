@@ -116,7 +116,7 @@ namespace DapperExtensions
         public async Task<T> Get<T>(dynamic id, int? commandTimeout) where T : class
         {
             var found = await _dapper.Get<T>(Connection, id, _transaction, commandTimeout);
-            return (T) found;
+            return (T)found;
         }
 
         public Task Insert<T>(IEnumerable<T> entities, IDbTransaction transaction, int? commandTimeout) where T : class
