@@ -19,7 +19,7 @@ namespace DapperExtensions.Test.IntegrationTests.MySql
         [SetUp]
         public virtual void Setup()
         {
-            var connection = new MySqlConnection("Server=localhost;Port=3306;Database=dapperTest;uid=dapperTest;password=dapperTest");
+            var connection = new MySqlConnection("Server=elevate.db.local;Port=3306;Database=dapperTest;uid=dapperTest;password=dapperTest");
             var config = new DapperExtensionsConfiguration(typeof(AutoClassMapper<>), new List<Assembly>(), new MySqlDialect());
             var sqlGenerator = new SqlGeneratorImpl(config);
             Db = new Database(connection, sqlGenerator);

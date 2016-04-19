@@ -108,7 +108,8 @@ namespace DapperExtensions.Test.IntegrationTests.MySql
 
                 Person p2 = await Db.Get<Person>(id);
                 await Db.Delete(p2);
-                Assert.IsNull(Db.Get<Person>(id));
+                var found = await Db.Get<Person>(id);
+                Assert.IsNull(found);
             }
 
             [Test]
